@@ -1,2 +1,10 @@
-Started! (Fri Sep  4 07:50:55 2020) 
+Started! (Fri Sep  4 08:14:34 2020) 
 
+Slice 0: Starting 2020-09-04 08:14:16.457892 ending 2020-09-04 08:14:16.457892 - (Fri Sep  4 08:14:40 2020)
+Edge Added: 49743	Edge removed: 0
+Writing Communities (Fri Sep  4 08:14:40 2020)
+Writing actual graph status (Fri Sep  4 08:14:40 2020)
+Writing merging file (Fri Sep  4 08:14:40 2020)
+Merged communities: 24 (Fri Sep  4 08:14:41 2020)
+Total Communities 986 (Fri Sep  4 08:14:41 2020)
+Finished! (Fri Sep  4 08:14:41 2020)
