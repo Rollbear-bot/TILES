@@ -4,11 +4,17 @@
 # @Filename: helloTiles.py
 
 import tiles as t
+from tqdm import tqdm  # 进度条支持
 
 
 def main():
-    data_path = "./data/cit-DBLP/0.edgelist"
+    data_folder = "./data/cit-DBLP/"
     output_path = "./output"
+    num_of_slices = 15
+
+    for i in tqdm(range(15)):
+        # 合成文件路径
+        data_path = data_folder + f"converted_{i}.edgelist"
 
     # todo::算法需要edgelist中包含时间戳
     # 初始化TILES算法
