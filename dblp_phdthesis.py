@@ -13,7 +13,8 @@ def main():
     output_path = working_dir + "tiles_output/"
 
     tl = t.TILES(data_path,
-                 path=output_path)
+                 path=output_path,
+                 obs=365)
 
     tl.execute()  # 执行算法
 
