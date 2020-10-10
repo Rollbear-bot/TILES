@@ -8,8 +8,8 @@ import time
 
 
 def main():
-    data_path = "../data/cit-DBLP/0.edgelist"
-    output_path = "../data/cit-DBLP/converted_0.edgelist"
+    data_path = "../data/fb-pages-food/0.edgelist"
+    output_path = "../data/fb-pages-food/converted_0.edgelist"
 
     lines = []
     with open(data_path, "r") as rf:
