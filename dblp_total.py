@@ -29,5 +29,5 @@ if __name__ == '__main__':
                    "book",
                    "incollection",
                    "www"]
-    for t in tqdm(avail_types):
-        run_tiles_on_a_dataset(t)
+    for avail_type in tqdm(avail_types):
+        run_tiles_on_a_dataset(avail_type)
