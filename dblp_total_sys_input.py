@@ -8,7 +8,7 @@ import os
 import sys
 
 
-def run_tiles_on_a_dataset(dataset, edgelist=None):
+def run_tiles_on_a_dataset(dataset, edgelist=None, alg="TILES"):
     working_dir = f"../dblp/datasets/frame_with_timestamp/{dataset}/"
     if edgelist is None:
         edgelist_path = sorted([path for path in os.listdir(working_dir) if path.endswith(".edgelist")])[-1]
@@ -17,9 +17,18 @@ def run_tiles_on_a_dataset(dataset, edgelist=None):
     data_path = working_dir + edgelist_path
     output_path = working_dir + "tiles_output/"
 
-    tl = t.TILES(data_path,
-                 path=output_path,
-                 obs=365)
+    if alg == "TILES":
+        tl = t.TILES(data_path,
+                     path=output_path,
+                     obs=365)
+    elif alg == "eTILES":
+        tl = t.eTILES(data_path,
+                      path=output_path,
+                      obs=365)
+    else:
+        tl = t.eTILES(data_path,
+                      path=output_path,
+                      obs=365)
 
     tl.execute()  # 执行算法
 
@@ -27,6 +36,6 @@ def run_tiles_on_a_dataset(dataset, edgelist=None):
 if __name__ == '__main__':
     avail_type = sys.argv[1]
     if len(sys.argv) > 2:
-        run_tiles_on_a_dataset(avail_type, edgelist=sys.argv[2])
+        run_tiles_on_a_dataset(avail_type, edgelist=sys.argv[2], alg="eTILES")
     else:
         run_tiles_on_a_dataset(avail_type)
