@@ -14,7 +14,7 @@ def main():
 
     tl = t.TILES(data_path,
                  path=output_path,
-                 obs=365)
+                 obs=30)
 
     tl.execute()  # 执行算法
 
