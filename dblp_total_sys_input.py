@@ -30,6 +30,7 @@ def run_tiles_on_a_dataset(dataset, edgelist=None, alg="TILES"):
                       path=output_path,
                       obs=365)
 
+    print(f"run on {data_path}\noutput to {output_path}")
     tl.execute()  # 执行算法
 
 
