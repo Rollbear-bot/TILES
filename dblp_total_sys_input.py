@@ -11,7 +11,8 @@ import sys
 def run_tiles_on_a_dataset(dataset, edgelist=None, alg="TILES"):
     working_dir = f"../dblp/datasets/frame_with_timestamp/{dataset}/"
     if edgelist is None:
-        edgelist_path = sorted([path for path in os.listdir(working_dir) if path.endswith(".edgelist")])[-1]
+        edgelist_path = sorted([path for path in os.listdir(working_dir)
+                                if len(path.split(".edgelist")[0]) == 4 and path.endswith(".edgelist")])[-1]
     else:
         edgelist_path = edgelist
     data_path = working_dir + edgelist_path
