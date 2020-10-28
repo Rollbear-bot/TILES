@@ -9,7 +9,7 @@ from tqdm import tqdm  # 进度条支持
 
 def main():
     data_folder = "./data/converted_synthetic1/"
-    output_path = "./output/"
+    output_path = "../output/"
     num_of_slices = 15
 
     # for i in tqdm(range(15)):

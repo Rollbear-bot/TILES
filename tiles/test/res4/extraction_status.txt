@@ -1,0 +1,307 @@
+Started! (Fri Oct 23 11:01:35 2020) 
+
+Saving Slice 0: Starting 2017-08-18 02:09:05 ending 2017-09-17 02:09:05 - (Fri Oct 23 11:01:37 2020)
+Edge Added: 27100	Edge removed: 0
+Writing Communities (Fri Oct 23 11:01:37 2020)
+Writing actual graph status (Fri Oct 23 11:01:37 2020)
+Writing merging file (Fri Oct 23 11:01:37 2020)
+Merged communities: 907 (Fri Oct 23 11:01:37 2020)
+Total Communities 171 (Fri Oct 23 11:01:37 2020)
+
+Started Slice 1 (11:01:37.478863)
+Saving Slice 1: Starting 2017-09-17 02:09:05 ending 2017-10-17 02:09:05 - (Fri Oct 23 11:01:37 2020)
+Edge Added: 1840	Edge removed: 0
+Writing Communities (Fri Oct 23 11:01:37 2020)
+Writing actual graph status (Fri Oct 23 11:01:37 2020)
+Writing merging file (Fri Oct 23 11:01:37 2020)
+Merged communities: 18 (Fri Oct 23 11:01:37 2020)
+Total Communities 177 (Fri Oct 23 11:01:37 2020)
+
+Started Slice 2 (11:01:37.689923)
+Saving Slice 2: Starting 2017-10-17 02:09:05 ending 2017-11-16 03:09:05 - (Fri Oct 23 11:01:37 2020)
+Edge Added: 874	Edge removed: 0
+Writing Communities (Fri Oct 23 11:01:37 2020)
+Writing actual graph status (Fri Oct 23 11:01:37 2020)
+Writing merging file (Fri Oct 23 11:01:37 2020)
+Merged communities: 9 (Fri Oct 23 11:01:37 2020)
+Total Communities 188 (Fri Oct 23 11:01:37 2020)
+
+Started Slice 3 (11:01:37.805096)
+Saving Slice 3: Starting 2017-11-16 03:09:05 ending 2017-12-16 03:09:05 - (Fri Oct 23 11:01:39 2020)
+Edge Added: 1573	Edge removed: 27071
+Writing Communities (Fri Oct 23 11:01:39 2020)
+Writing actual graph status (Fri Oct 23 11:01:39 2020)
+Writing merging file (Fri Oct 23 11:01:39 2020)
+Merged communities: 29 (Fri Oct 23 11:01:39 2020)
+Total Communities 57 (Fri Oct 23 11:01:39 2020)
+
+Started Slice 4 (11:01:39.703385)
+Saving Slice 4: Starting 2017-12-16 03:09:05 ending 2018-01-15 03:09:05 - (Fri Oct 23 11:01:39 2020)
+Edge Added: 1109	Edge removed: 1811
+Writing Communities (Fri Oct 23 11:01:39 2020)
+Writing actual graph status (Fri Oct 23 11:01:39 2020)
+Writing merging file (Fri Oct 23 11:01:39 2020)
+Merged communities: 3 (Fri Oct 23 11:01:39 2020)
+Total Communities 156 (Fri Oct 23 11:01:39 2020)
+
+Started Slice 5 (11:01:39.868285)
+Saving Slice 5: Starting 2018-01-15 03:09:05 ending 2018-02-14 03:09:05 - (Fri Oct 23 11:01:39 2020)
+Edge Added: 969	Edge removed: 847
+Writing Communities (Fri Oct 23 11:01:39 2020)
+Writing actual graph status (Fri Oct 23 11:01:39 2020)
+Writing merging file (Fri Oct 23 11:01:39 2020)
+Merged communities: 9 (Fri Oct 23 11:01:39 2020)
+Total Communities 174 (Fri Oct 23 11:01:39 2020)
+
+Started Slice 6 (11:01:39.985743)
+Saving Slice 6: Starting 2018-02-14 03:09:05 ending 2018-03-16 03:09:05 - (Fri Oct 23 11:01:40 2020)
+Edge Added: 1711	Edge removed: 21912
+Writing Communities (Fri Oct 23 11:01:40 2020)
+Writing actual graph status (Fri Oct 23 11:01:40 2020)
+Writing merging file (Fri Oct 23 11:01:40 2020)
+Merged communities: 20 (Fri Oct 23 11:01:40 2020)
+Total Communities 111 (Fri Oct 23 11:01:40 2020)
+
+Started Slice 7 (11:01:40.356438)
+Saving Slice 7: Starting 2018-03-16 03:09:05 ending 2018-04-16 02:09:05 - (Fri Oct 23 11:01:40 2020)
+Edge Added: 1048	Edge removed: 1514
+Writing Communities (Fri Oct 23 11:01:40 2020)
+Writing actual graph status (Fri Oct 23 11:01:40 2020)
+Writing merging file (Fri Oct 23 11:01:40 2020)
+Merged communities: 15 (Fri Oct 23 11:01:40 2020)
+Total Communities 117 (Fri Oct 23 11:01:40 2020)
+
+Started Slice 8 (11:01:40.584866)
+Saving Slice 8: Starting 2018-04-16 02:09:05 ending 2018-05-16 02:09:05 - (Fri Oct 23 11:01:40 2020)
+Edge Added: 1265	Edge removed: 1164
+Writing Communities (Fri Oct 23 11:01:40 2020)
+Writing actual graph status (Fri Oct 23 11:01:40 2020)
+Writing merging file (Fri Oct 23 11:01:40 2020)
+Merged communities: 14 (Fri Oct 23 11:01:40 2020)
+Total Communities 146 (Fri Oct 23 11:01:40 2020)
+
+Started Slice 9 (11:01:40.791414)
+Saving Slice 9: Starting 2018-05-16 02:09:05 ending 2018-06-15 02:09:05 - (Fri Oct 23 11:01:41 2020)
+Edge Added: 1419	Edge removed: 2054
+Writing Communities (Fri Oct 23 11:01:41 2020)
+Writing actual graph status (Fri Oct 23 11:01:41 2020)
+Writing merging file (Fri Oct 23 11:01:41 2020)
+Merged communities: 24 (Fri Oct 23 11:01:41 2020)
+Total Communities 143 (Fri Oct 23 11:01:41 2020)
+
+Started Slice 10 (11:01:41.109272)
+Saving Slice 10: Starting 2018-06-15 02:09:05 ending 2018-07-15 02:09:05 - (Fri Oct 23 11:01:41 2020)
+Edge Added: 697	Edge removed: 1272
+Writing Communities (Fri Oct 23 11:01:41 2020)
+Writing actual graph status (Fri Oct 23 11:01:41 2020)
+Writing merging file (Fri Oct 23 11:01:41 2020)
+Merged communities: 13 (Fri Oct 23 11:01:41 2020)
+Total Communities 120 (Fri Oct 23 11:01:41 2020)
+
+Started Slice 11 (11:01:41.345320)
+Saving Slice 11: Starting 2018-07-15 02:09:05 ending 2018-08-14 02:09:05 - (Fri Oct 23 11:01:41 2020)
+Edge Added: 1360	Edge removed: 1379
+Writing Communities (Fri Oct 23 11:01:41 2020)
+Writing actual graph status (Fri Oct 23 11:01:41 2020)
+Writing merging file (Fri Oct 23 11:01:41 2020)
+Merged communities: 24 (Fri Oct 23 11:01:41 2020)
+Total Communities 128 (Fri Oct 23 11:01:41 2020)
+
+Started Slice 12 (11:01:41.614745)
+Saving Slice 12: Starting 2018-08-14 02:09:05 ending 2018-09-13 02:09:05 - (Fri Oct 23 11:01:41 2020)
+Edge Added: 925	Edge removed: 1805
+Writing Communities (Fri Oct 23 11:01:41 2020)
+Writing actual graph status (Fri Oct 23 11:01:41 2020)
+Writing merging file (Fri Oct 23 11:01:41 2020)
+Merged communities: 12 (Fri Oct 23 11:01:41 2020)
+Total Communities 106 (Fri Oct 23 11:01:41 2020)
+
+Started Slice 13 (11:01:41.876003)
+Saving Slice 13: Starting 2018-09-13 02:09:05 ending 2018-10-13 02:09:05 - (Fri Oct 23 11:01:41 2020)
+Edge Added: 821	Edge removed: 868
+Writing Communities (Fri Oct 23 11:01:41 2020)
+Writing actual graph status (Fri Oct 23 11:01:41 2020)
+Writing merging file (Fri Oct 23 11:01:41 2020)
+Merged communities: 7 (Fri Oct 23 11:01:41 2020)
+Total Communities 134 (Fri Oct 23 11:01:41 2020)
+
+Started Slice 14 (11:01:41.938701)
+Saving Slice 14: Starting 2018-10-13 02:09:05 ending 2018-11-13 03:09:05 - (Fri Oct 23 11:01:42 2020)
+Edge Added: 544	Edge removed: 1603
+Writing Communities (Fri Oct 23 11:01:42 2020)
+Writing actual graph status (Fri Oct 23 11:01:42 2020)
+Writing merging file (Fri Oct 23 11:01:42 2020)
+Merged communities: 22 (Fri Oct 23 11:01:42 2020)
+Total Communities 89 (Fri Oct 23 11:01:42 2020)
+
+Started Slice 15 (11:01:42.127119)
+Saving Slice 15: Starting 2018-11-13 03:09:05 ending 2018-12-14 03:09:05 - (Fri Oct 23 11:01:42 2020)
+Edge Added: 782	Edge removed: 1230
+Writing Communities (Fri Oct 23 11:01:42 2020)
+Writing actual graph status (Fri Oct 23 11:01:42 2020)
+Writing merging file (Fri Oct 23 11:01:42 2020)
+Merged communities: 15 (Fri Oct 23 11:01:42 2020)
+Total Communities 87 (Fri Oct 23 11:01:42 2020)
+
+Started Slice 16 (11:01:42.263281)
+Saving Slice 16: Starting 2018-12-14 03:09:05 ending 2019-01-14 03:09:05 - (Fri Oct 23 11:01:42 2020)
+Edge Added: 1066	Edge removed: 964
+Writing Communities (Fri Oct 23 11:01:42 2020)
+Writing actual graph status (Fri Oct 23 11:01:42 2020)
+Writing merging file (Fri Oct 23 11:01:42 2020)
+Merged communities: 20 (Fri Oct 23 11:01:42 2020)
+Total Communities 89 (Fri Oct 23 11:01:42 2020)
+
+Started Slice 17 (11:01:42.388672)
+Saving Slice 17: Starting 2019-01-14 03:09:05 ending 2019-02-13 03:09:05 - (Fri Oct 23 11:01:42 2020)
+Edge Added: 580	Edge removed: 925
+Writing Communities (Fri Oct 23 11:01:42 2020)
+Writing actual graph status (Fri Oct 23 11:01:42 2020)
+Writing merging file (Fri Oct 23 11:01:42 2020)
+Merged communities: 8 (Fri Oct 23 11:01:42 2020)
+Total Communities 78 (Fri Oct 23 11:01:42 2020)
+
+Started Slice 18 (11:01:42.462585)
+Saving Slice 18: Starting 2019-02-13 03:09:05 ending 2019-03-15 03:09:05 - (Fri Oct 23 11:01:42 2020)
+Edge Added: 1646	Edge removed: 714
+Writing Communities (Fri Oct 23 11:01:42 2020)
+Writing actual graph status (Fri Oct 23 11:01:42 2020)
+Writing merging file (Fri Oct 23 11:01:42 2020)
+Merged communities: 1 (Fri Oct 23 11:01:42 2020)
+Total Communities 131 (Fri Oct 23 11:01:42 2020)
+
+Started Slice 19 (11:01:42.540392)
+Saving Slice 19: Starting 2019-03-15 03:09:05 ending 2019-04-15 02:09:05 - (Fri Oct 23 11:01:42 2020)
+Edge Added: 761	Edge removed: 1198
+Writing Communities (Fri Oct 23 11:01:42 2020)
+Writing actual graph status (Fri Oct 23 11:01:42 2020)
+Writing merging file (Fri Oct 23 11:01:42 2020)
+Merged communities: 19 (Fri Oct 23 11:01:42 2020)
+Total Communities 105 (Fri Oct 23 11:01:42 2020)
+
+Started Slice 20 (11:01:42.825801)
+Saving Slice 20: Starting 2019-04-15 02:09:05 ending 2019-05-15 02:09:05 - (Fri Oct 23 11:01:43 2020)
+Edge Added: 738	Edge removed: 723
+Writing Communities (Fri Oct 23 11:01:43 2020)
+Writing actual graph status (Fri Oct 23 11:01:43 2020)
+Writing merging file (Fri Oct 23 11:01:43 2020)
+Merged communities: 16 (Fri Oct 23 11:01:43 2020)
+Total Communities 109 (Fri Oct 23 11:01:43 2020)
+
+Started Slice 21 (11:01:43.090441)
+Saving Slice 21: Starting 2019-05-15 02:09:05 ending 2019-06-14 02:09:05 - (Fri Oct 23 11:01:43 2020)
+Edge Added: 550	Edge removed: 1658
+Writing Communities (Fri Oct 23 11:01:43 2020)
+Writing actual graph status (Fri Oct 23 11:01:43 2020)
+Writing merging file (Fri Oct 23 11:01:43 2020)
+Merged communities: 8 (Fri Oct 23 11:01:43 2020)
+Total Communities 75 (Fri Oct 23 11:01:43 2020)
+
+Started Slice 22 (11:01:43.258348)
+Saving Slice 22: Starting 2019-06-14 02:09:05 ending 2019-07-14 02:09:05 - (Fri Oct 23 11:01:43 2020)
+Edge Added: 2574	Edge removed: 934
+Writing Communities (Fri Oct 23 11:01:43 2020)
+Writing actual graph status (Fri Oct 23 11:01:43 2020)
+Writing merging file (Fri Oct 23 11:01:43 2020)
+Merged communities: 17 (Fri Oct 23 11:01:43 2020)
+Total Communities 141 (Fri Oct 23 11:01:43 2020)
+
+Started Slice 23 (11:01:43.547736)
+Saving Slice 23: Starting 2019-07-14 02:09:05 ending 2019-08-13 02:09:05 - (Fri Oct 23 11:01:43 2020)
+Edge Added: 1498	Edge removed: 836
+Writing Communities (Fri Oct 23 11:01:43 2020)
+Writing actual graph status (Fri Oct 23 11:01:43 2020)
+Writing merging file (Fri Oct 23 11:01:43 2020)
+Merged communities: 6 (Fri Oct 23 11:01:43 2020)
+Total Communities 193 (Fri Oct 23 11:01:43 2020)
+
+Started Slice 24 (11:01:43.786891)
+Saving Slice 24: Starting 2019-08-13 02:09:05 ending 2019-09-12 02:09:05 - (Fri Oct 23 11:01:44 2020)
+Edge Added: 2381	Edge removed: 717
+Writing Communities (Fri Oct 23 11:01:44 2020)
+Writing actual graph status (Fri Oct 23 11:01:44 2020)
+Writing merging file (Fri Oct 23 11:01:44 2020)
+Merged communities: 62 (Fri Oct 23 11:01:44 2020)
+Total Communities 188 (Fri Oct 23 11:01:44 2020)
+
+Started Slice 25 (11:01:44.508105)
+Saving Slice 25: Starting 2019-09-12 02:09:05 ending 2019-10-12 02:09:05 - (Fri Oct 23 11:01:44 2020)
+Edge Added: 1238	Edge removed: 2694
+Writing Communities (Fri Oct 23 11:01:44 2020)
+Writing actual graph status (Fri Oct 23 11:01:44 2020)
+Writing merging file (Fri Oct 23 11:01:44 2020)
+Merged communities: 31 (Fri Oct 23 11:01:44 2020)
+Total Communities 141 (Fri Oct 23 11:01:44 2020)
+
+Started Slice 26 (11:01:44.951946)
+Saving Slice 26: Starting 2019-10-12 02:09:05 ending 2019-11-11 03:09:05 - (Fri Oct 23 11:01:45 2020)
+Edge Added: 1378	Edge removed: 1783
+Writing Communities (Fri Oct 23 11:01:45 2020)
+Writing actual graph status (Fri Oct 23 11:01:45 2020)
+Writing merging file (Fri Oct 23 11:01:45 2020)
+Merged communities: 8 (Fri Oct 23 11:01:45 2020)
+Total Communities 186 (Fri Oct 23 11:01:45 2020)
+
+Started Slice 27 (11:01:45.114658)
+Saving Slice 27: Starting 2019-11-11 03:09:05 ending 2019-12-11 03:09:05 - (Fri Oct 23 11:01:45 2020)
+Edge Added: 1338	Edge removed: 2491
+Writing Communities (Fri Oct 23 11:01:45 2020)
+Writing actual graph status (Fri Oct 23 11:01:45 2020)
+Writing merging file (Fri Oct 23 11:01:45 2020)
+Merged communities: 41 (Fri Oct 23 11:01:45 2020)
+Total Communities 115 (Fri Oct 23 11:01:45 2020)
+
+Started Slice 28 (11:01:45.720526)
+Saving Slice 28: Starting 2019-12-11 03:09:05 ending 2020-01-10 03:09:05 - (Fri Oct 23 11:01:46 2020)
+Edge Added: 808	Edge removed: 1907
+Writing Communities (Fri Oct 23 11:01:46 2020)
+Writing actual graph status (Fri Oct 23 11:01:46 2020)
+Writing merging file (Fri Oct 23 11:01:46 2020)
+Merged communities: 42 (Fri Oct 23 11:01:46 2020)
+Total Communities 59 (Fri Oct 23 11:01:46 2020)
+
+Started Slice 29 (11:01:46.188420)
+Saving Slice 29: Starting 2020-01-10 03:09:05 ending 2020-02-09 03:09:05 - (Fri Oct 23 11:01:46 2020)
+Edge Added: 334	Edge removed: 1733
+Writing Communities (Fri Oct 23 11:01:46 2020)
+Writing actual graph status (Fri Oct 23 11:01:46 2020)
+Writing merging file (Fri Oct 23 11:01:46 2020)
+Merged communities: 5 (Fri Oct 23 11:01:46 2020)
+Total Communities 29 (Fri Oct 23 11:01:46 2020)
+
+Started Slice 30 (11:01:46.364937)
+Saving Slice 30: Starting 2020-02-09 03:09:05 ending 2020-03-10 03:09:05 - (Fri Oct 23 11:01:46 2020)
+Edge Added: 372	Edge removed: 1827
+Writing Communities (Fri Oct 23 11:01:46 2020)
+Writing actual graph status (Fri Oct 23 11:01:46 2020)
+Writing merging file (Fri Oct 23 11:01:46 2020)
+Merged communities: 3 (Fri Oct 23 11:01:46 2020)
+Total Communities 21 (Fri Oct 23 11:01:46 2020)
+
+Started Slice 31 (11:01:46.482829)
+Saving Slice 31: Starting 2020-03-10 03:09:05 ending 2020-04-10 02:09:05 - (Fri Oct 23 11:01:46 2020)
+Edge Added: 323	Edge removed: 1080
+Writing Communities (Fri Oct 23 11:01:46 2020)
+Writing actual graph status (Fri Oct 23 11:01:46 2020)
+Writing merging file (Fri Oct 23 11:01:46 2020)
+Merged communities: 1 (Fri Oct 23 11:01:46 2020)
+Total Communities 15 (Fri Oct 23 11:01:46 2020)
+
+Started Slice 32 (11:01:46.545220)
+Saving Slice 32: Starting 2020-04-10 02:09:05 ending 2020-05-10 02:09:05 - (Fri Oct 23 11:01:46 2020)
+Edge Added: 341	Edge removed: 671
+Writing Communities (Fri Oct 23 11:01:46 2020)
+Writing actual graph status (Fri Oct 23 11:01:46 2020)
+Writing merging file (Fri Oct 23 11:01:46 2020)
+Merged communities: 1 (Fri Oct 23 11:01:46 2020)
+Total Communities 16 (Fri Oct 23 11:01:46 2020)
+
+Started Slice 33 (11:01:46.590381)
+Slice 33: Starting 2020-05-10 02:09:05 ending 2020-05-10 02:09:05 - (Fri Oct 23 11:01:46 2020)
+Edge Added: 46	Edge removed: 164
+Writing Communities (Fri Oct 23 11:01:46 2020)
+Writing actual graph status (Fri Oct 23 11:01:46 2020)
+Writing merging file (Fri Oct 23 11:01:46 2020)
+Merged communities: 0 (Fri Oct 23 11:01:46 2020)
+Total Communities 18 (Fri Oct 23 11:01:46 2020)
+Finished! (Fri Oct 23 11:01:46 2020)
