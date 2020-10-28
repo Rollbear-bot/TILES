@@ -38,6 +38,6 @@ def run_tiles_on_a_dataset(dataset, obs, edgelist=None, alg="TILES"):
 if __name__ == '__main__':
     avail_type = sys.argv[1]
     if len(sys.argv) > 3:
-        run_tiles_on_a_dataset(avail_type, obs=sys.argv[2], edgelist=sys.argv[3], alg="eTILES")
+        run_tiles_on_a_dataset(avail_type, obs=int(sys.argv[2]), edgelist=sys.argv[3], alg="eTILES")
     else:
-        run_tiles_on_a_dataset(avail_type, obs=sys.argv[2])
+        run_tiles_on_a_dataset(avail_type, obs=int(sys.argv[2]))
