@@ -34,11 +34,11 @@ def check_timestamp(edgelist_path, fig_dump_path, show=False, print_log=False):
         timestamp_lt = [float(line.rstrip().split("\t")[-1]) for line in lines]
         datetime_lt = [int(timestamp2year(line)) for line in timestamp_lt]
 
-        datetime_dict = {str(key): 0 for key in range(min(datetime_lt), max(datetime_lt))}
+        datetime_dict = {key: 0 for key in range(min(datetime_lt), max(datetime_lt))}
         for line in datetime_lt:
             datetime_dict[line] = datetime_dict.get(line, 0) + 1
 
-        x_y = [(str(key), datetime_dict[key]) for key in datetime_dict]
+        x_y = [(int(key), datetime_dict[key]) for key in datetime_dict]
         x_y.sort(key=lambda item: item[0])
 
         plt.barh([item[0] for item in x_y], [item[1] for item in x_y])
