@@ -28,7 +28,7 @@ def timestamp2year(timestamp):
     return datetime_array.strftime("%Y")
 
 
-def check_timestamp(edgelist_path, fig_dump_path, show=False):
+def check_timestamp(edgelist_path, fig_dump_path, show=False, print_log=False):
     with open(edgelist_path, "r") as rf:
         lines = rf.readlines()
         timestamp_lt = [float(line.rstrip().split("\t")[-1]) for line in lines]
@@ -44,6 +44,11 @@ def check_timestamp(edgelist_path, fig_dump_path, show=False):
         plt.barh([item[0] for item in x_y], [item[1] for item in x_y])
         if show:
             plt.show()
+        if print_log:
+            print("\n" + "="*20)
+            print(f"in {edgelist_path}:")
+            for item in x_y:
+                print(f"year: {item[0]}\t#sample: {item[1]}")
 
         plt.savefig(fig_dump_path)
 
@@ -62,4 +67,4 @@ if __name__ == '__main__':
         data_path = working_dir + edgelist
         fig_dump_path = f"./fig/{dataset}.png"
 
-        check_timestamp(data_path, fig_dump_path)
+        check_timestamp(data_path, fig_dump_path, print_log=True)
