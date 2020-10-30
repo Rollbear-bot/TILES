@@ -100,3 +100,5 @@ ENV/
 /output/
 /data/
 /my_script/test/
+/my_script/
+/fig/
