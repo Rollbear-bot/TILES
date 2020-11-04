@@ -10,13 +10,14 @@ from future.utils import iteritems
 import os
 
 import sys
+
 if sys.version_info > (2, 7):
     from io import StringIO
     from queue import PriorityQueue
 else:
+    # 对Python2的支持
     from cStringIO import StringIO
     from Queue import PriorityQueue
-
 
 __author__ = "Giulio Rossetti"
 __contact__ = "giulio.rossetti@gmail.com"
@@ -65,16 +66,18 @@ class TILES(object):
             Execute TILES algorithm
         """
         self.status.write(u"Started! (%s) \n\n" % str(time.asctime(time.localtime(time.time()))))
-        self.status.flush()
+        self.status.flush()  # todo::?
 
-        qr = PriorityQueue()
+        qr = PriorityQueue()  # 用于存放等待消亡的边的优先级队列
 
-        with open(self.filename, 'r') as f:
-            first_line = f.readline()
+        # 先读取edgelist的第一行，初始化成员变量
+        with open(self.filename, 'r') as edgelist_file:
+            first_line = edgelist_file.readline()
 
+        # 从时间戳获得datetime
         actual_time = datetime.datetime.fromtimestamp(float(first_line.split("\t")[2]))
         last_break = actual_time
-        f.close()
+        edgelist_file.close()
 
         count = 0
 
@@ -82,18 +85,20 @@ class TILES(object):
         #                   Main Cycle                  #
         #################################################
 
-        f = open(self.filename)
-        for l in f:
-            l = l.split("\t")
+        # 从edgelist的第二行开始，进入主循环，每一次迭代即为处理一条边
+        edgelist_file = open(self.filename)
+        for line in edgelist_file:
+            line = line.split("\t")
             self.added += 1
             e = {}
-            u = int(l[0])
-            v = int(l[1])
-            dt = datetime.datetime.fromtimestamp(float(l[2]))
+            u = int(line[0])
+            v = int(line[1])
+            # 当前边的datetime时间
+            dt = datetime.datetime.fromtimestamp(float(line[2]))
 
             e['weight'] = 1
-            e["u"] = l[0]
-            e["v"] = l[1]
+            e["u"] = line[0]
+            e["v"] = line[1]
             # month = dt.month
 
             #############################################
@@ -103,12 +108,15 @@ class TILES(object):
             gap = dt - last_break
             dif = gap.days
 
+            # 如果当前边的时间距离上一条边的时间已经大于obs（天为单位），
+            # 则开启一个观察点
             if dif >= self.obs:
                 last_break = dt
                 self.added -= 1
 
                 print("New slice. Starting Day: %s" % dt)
 
+                # todo::？
                 self.status.write(u"Saving Slice %s: Starting %s ending %s - (%s)\n" %
                                   (self.actual_slice, actual_time, dt,
                                    str(time.asctime(time.localtime(time.time())))))
@@ -126,7 +134,7 @@ class TILES(object):
                 self.splits.close()
                 self.spl = StringIO()
 
-                self.print_communities()
+                self.print_communities()  # 输出当前观察窗口的数据到文件
                 self.status.write(
                     u"\nStarted Slice %s (%s)\n" % (self.actual_slice, str(datetime.datetime.now().time())))
 
@@ -154,6 +162,7 @@ class TILES(object):
                 self.g.add_edge(u, v)
                 self.g.adj[u][v]["weight"] = e['weight']
 
+            # 获得当前边两端点的邻接点
             u_n = list(self.g.neighbors(u))
             v_n = list(self.g.neighbors(v))
 
@@ -185,6 +194,7 @@ class TILES(object):
     def new_community_id(self):
         """
             Return a new community identifier
+            申请一个新的社区id，唯一标识每一个社区
             :return: new community id
         """
         self.cid += 1
@@ -194,6 +204,7 @@ class TILES(object):
     def remove(self, actual_time, qr):
         """
             Edge removal procedure
+            边移除模块
             :param actual_time: timestamp of the last inserted edge
             :param qr: Priority Queue containing the edges to be removed ordered by their timestamps
         """
@@ -206,7 +217,7 @@ class TILES(object):
 
             t = qr.get()
             timestamp = t[0]
-            e = (t[1][0],  t[1][1], t[1][2])
+            e = (t[1][0], t[1][1], t[1][2])
 
             delta = at - timestamp
             displacement = delta.days
@@ -228,7 +239,7 @@ class TILES(object):
                         # (multiple occurrence of the edge: remove only the oldest)
                         if w > 1:
                             self.g.adj[u][v]["weight"] = w - 1
-                            e = (u,  v, w-1)
+                            e = (u, v, w - 1)
                             qr.put((at, e))
 
                         else:
@@ -261,7 +272,6 @@ class TILES(object):
                             self.g.remove_edge(u, v)
 
                     if not qr.empty():
-
                         t = qr.get()
 
                         timestamp = t[0]
@@ -271,10 +281,16 @@ class TILES(object):
                         e = t[1]
 
         # update of shared communities
+        # 边移除后，更新它涉及到的社区
         self.update_shared_coms(coms_to_change)
 
     def update_shared_coms(self, coms_to_change):
-        # update of shared communities
+        """
+        update of shared communities
+        有边消失后，更新它涉及的社区
+        :param coms_to_change: 该边涉及的社区
+        :return: None
+        """
         for c in coms_to_change:
             if c not in self.communities:
                 continue
@@ -292,6 +308,7 @@ class TILES(object):
                     self.modify_after_removal(to_mod, c)
 
                 # broken community: bigger one maintains the id, the others obtain a new one
+                # 社区分裂时：最大的子社区获得原来的社区id，其他子社区申请新id
                 else:
                     new_ids = []
 
@@ -315,7 +332,10 @@ class TILES(object):
 
                                 central = self.centrality_test(sub_c).keys()
                                 if len(central) >= 3:
+                                    # 申请新的社区id
                                     actual_id = self.new_community_id
+                                    # 新申请的id的集合，稍后写入split记录文件中
+                                    # （所以split记录中每行方括号后的id都是在这一步新申请的id）
                                     new_ids.append(actual_id)
                                     for n in central:
                                         self.add_to_community(n, actual_id)
@@ -329,6 +349,7 @@ class TILES(object):
     def modify_after_removal(self, sub_c, c):
         """
             Maintain the clustering coefficient invariant after the edge removal phase
+
             :param sub_c: sub-community to evaluate
             :param c: community id
         """
@@ -350,6 +371,7 @@ class TILES(object):
     def common_neighbors_analysis(self, u, v, common_neighbors):
         """
             General case in which both the nodes are already present in the net.
+            todo::共同邻居节点分析？
             :param u: a node
             :param v: a node
             :param common_neighbors: common neighbors of the two nodes
@@ -360,7 +382,6 @@ class TILES(object):
             return
 
         else:
-
             shared_coms = set(self.g.node[v]['c_coms'].keys()) & set(self.g.node[u]['c_coms'].keys())
             only_u = set(self.g.node[u]['c_coms'].keys()) - set(self.g.node[v]['c_coms'].keys())
             only_v = set(self.g.node[v]['c_coms'].keys()) - set(self.g.node[u]['c_coms'].keys())
@@ -386,18 +407,22 @@ class TILES(object):
             else:
                 if not propagated:
                     # new community
+                    # 申请新的社区id
                     actual_cid = self.new_community_id
+                    # 该边的两端点加入社区
                     self.add_to_community(u, actual_cid)
                     self.add_to_community(v, actual_cid)
 
+                    # 社区的一阶邻居节点加入社区（这些节点作为社区的边缘成员）
                     for z in common_neighbors:
                         self.add_to_community(z, actual_cid)
 
     def print_communities(self):
         """
             Print the actual communities
+            打印当前窗口的所有数据（输出到gz压缩文件，生成graph，split，merge和社区划分文件）
+            并写入日志
         """
-
         out_file_coms = gzip.open("%s/%s/strong-communities-%d.gz" % (self.base, self.path, self.actual_slice), "wt", 3)
         com_string = StringIO()
 
@@ -442,7 +467,7 @@ class TILES(object):
             write_count += 1
             if write_count % 50000 == 0:
                 out_file_coms.write(com_string.getvalue())
-                out_file_coms.flush()
+                out_file_coms.flush()  # 刷新文件缓冲区，将缓冲区的内容提前写入文件
                 com_string = StringIO()
                 write_count = 0
             com_string.write(u"%d\t%s\n" % (idk, str(list(k))))
@@ -491,17 +516,30 @@ class TILES(object):
 
         self.actual_slice += 1
         self.status.write(u"Total Communities %d (%s)\n" % (len(self.communities.keys()),
-                                                           str(time.asctime(time.localtime(time.time())))))
+                                                            str(time.asctime(time.localtime(time.time())))))
         self.status.flush()
 
     def destroy_community(self, cid):
+        """
+        销毁一个社区
+        :param cid: 社区id
+        :return: None
+        """
+        # 获得社区中的所有成员点
         nodes = [x for x in self.communities[cid].keys()]
         for n in nodes:
-            self.remove_from_community(n, cid)
-        self.communities.pop(cid, None)
+            self.remove_from_community(n, cid)  # 将所有成员节点从该社区中移除
+        self.communities.pop(cid, None)  # 从社区列表中移除指定的社区
 
     def add_to_community(self, node, cid):
-
+        """
+        添加一个节点到一个社区
+        只处理成员关系，不处理社区更新
+        :param node: 节点id
+        :param cid: 社区id
+        :return: None
+        """
+        # todo::使用None来标识节点的存在？
         self.g.node[node]['c_coms'][cid] = None
         if cid in self.communities:
             self.communities[cid][node] = None
@@ -509,9 +547,18 @@ class TILES(object):
             self.communities[cid] = {node: None}
 
     def remove_from_community(self, node, cid):
+        """
+        将一个节点从一个社区中移除
+        只处理成员关系，不处理社区更新问题
+        :param node: 节点id
+        :param cid: 社区id
+        :return: None
+        """
         if cid in self.g.node[node]['c_coms']:
+            # 在nx graph对象的节点中存储了某节点所属的社区，需要在这里清除
             self.g.node[node]['c_coms'].pop(cid, None)
             if cid in self.communities and node in self.communities[cid]:
+                # 成员对象communities表中也存储了社区的成员节点id，需要清除
                 self.communities[cid].pop(node, None)
 
     def centrality_test(self, subgraph):
