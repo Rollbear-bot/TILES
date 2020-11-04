@@ -24,7 +24,8 @@ def case_online():
                    "www"]
     for dataset in tqdm(avail_types):
         working_dir = f"../dblp/datasets/frame_with_timestamp/{dataset}/"
-        edgelist_path = sorted([path for path in os.listdir(working_dir) if path.endswith(".edgelist")])[-1]
+        edgelist_path = sorted([path for path in os.listdir(working_dir)
+                                if len(path.split(".edgelist")[0]) == 4 and path.endswith(".edgelist")])[-1]
         data_path = working_dir + edgelist_path
         sort_edgelist_by_timestamp(data_path, working_dir + f"{dataset}_sorted.edgelist")
 
