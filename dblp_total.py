@@ -34,6 +34,6 @@ if __name__ == '__main__':
 
     for avail_type in tqdm(avail_types):
         run_tiles_on_a_dataset(avail_type,
-                               edgelist_name=f"{type}_sorted.edgelist",
+                               edgelist_name=f"{avail_type}_sorted.edgelist",
                                obs=365,
                                ttl=730)
