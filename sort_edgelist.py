@@ -4,6 +4,7 @@
 # @Filename: sort_edgelist.py
 
 import os
+from tqdm import tqdm
 
 
 def sort_edgelist_by_timestamp(edgelist_path, dump_path, segregating="\t"):
@@ -21,7 +22,7 @@ def case_online():
                    "book",
                    "incollection",
                    "www"]
-    for dataset in avail_types:
+    for dataset in tqdm(avail_types):
         working_dir = f"../dblp/datasets/frame_with_timestamp/{dataset}/"
         edgelist_path = sorted([path for path in os.listdir(working_dir) if path.endswith(".edgelist")])[-1]
         data_path = working_dir + edgelist_path
