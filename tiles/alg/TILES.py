@@ -75,7 +75,12 @@ class TILES(object):
             first_line = edgelist_file.readline()
 
         # 从时间戳获得datetime
-        actual_time = datetime.datetime.fromtimestamp(float(first_line.split("\t")[2]))
+        # 负数时间戳分开处理
+        if float(first_line.split("\t")[2]) > 0:
+            actual_time = datetime.datetime.fromtimestamp(float(first_line.split("\t")[2]))
+        else:
+            actual_time = datetime.datetime(1970, 1, 1) + datetime.timedelta(seconds=float(first_line.split("\t")[2]))
+
         last_break = actual_time
         edgelist_file.close()
 
@@ -93,8 +98,11 @@ class TILES(object):
             e = {}
             u = int(line[0])
             v = int(line[1])
-            # 当前边的datetime时间
-            dt = datetime.datetime.fromtimestamp(float(line[2]))
+            # 当前边的datetime时间，负数时间戳分开处理
+            if float(line[2]) > 0:
+                dt = datetime.datetime.fromtimestamp(float(line[2]))
+            else:
+                dt = datetime.datetime(1970, 1, 1) + datetime.timedelta(seconds=float(line[2]))
 
             e['weight'] = 1
             e["u"] = line[0]
