@@ -41,5 +41,4 @@ if __name__ == '__main__':
         run_tiles_on_a_dataset(avail_type,
                                edgelist_name=f"{avail_type}_sorted.edgelist",
                                obs=365,
-                               ttl=730,
-                               out="tiles_output_test2")
+                               out="tiles_output_test3")
