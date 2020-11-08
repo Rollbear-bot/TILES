@@ -64,9 +64,18 @@ class TILES(object):
     def execute(self):
         """
             Execute TILES algorithm
+            流程顺序：
+            0. 初始化（进入主循环之前）：初始化边移除队列、最初时间戳
+            主循环（直到stream source到达尽头）：
+            1. 以新边时间戳作为本次迭代的最新时间
+            2. 新边加入移除队列，但先不加入图
+            3. 基于本次迭代的最新时间判断是否开启一个观察点，即输出缓存中的数据到文件
+            4. 检查移除队列，移除过期的边
+            5. 新边加入图（在数据结构中注册节点、注册边、更新权值）
+            6. 社区演化：计算新边两端点的邻居点
         """
         self.status.write(u"Started! (%s) \n\n" % str(time.asctime(time.localtime(time.time()))))
-        self.status.flush()  # todo::?
+        self.status.flush()
 
         qr = PriorityQueue()  # 用于存放等待消亡的边的优先级队列
 
@@ -124,7 +133,6 @@ class TILES(object):
 
                 print("New slice. Starting Day: %s" % dt)
 
-                # todo::？
                 self.status.write(u"Saving Slice %s: Starting %s ending %s - (%s)\n" %
                                   (self.actual_slice, actual_time, dt,
                                    str(time.asctime(time.localtime(time.time())))))
@@ -151,17 +159,19 @@ class TILES(object):
 
             # Check if edge removal is required
             if self.ttl != float('inf'):
+                # 新边加入优先级队列，它的权值为1
                 qr.put((dt, (int(e['u']), int(e['v']), int(e['weight']))))
-                self.remove(dt, qr)
+                self.remove(dt, qr)  # 移除当前时间过期的边
 
+            # 对两个端点u与v：如果是新出现的端点，则在数据结构中注册
             if not self.g.has_node(u):
                 self.g.add_node(u)
                 self.g.node[u]['c_coms'] = {}  # central
-
             if not self.g.has_node(v):
                 self.g.add_node(v)
                 self.g.node[v]['c_coms'] = {}
 
+            # 如果当前边已经在图中存在，则它的权值+1，否则在数据结构中注册这条边，并将权值置为1
             if self.g.has_edge(u, v):
                 w = self.g.adj[u][v]["weight"]
                 self.g.adj[u][v]["weight"] = w + e['weight']
@@ -171,21 +181,22 @@ class TILES(object):
                 self.g.adj[u][v]["weight"] = e['weight']
 
             # 获得当前边两端点的邻接点
-            u_n = list(self.g.neighbors(u))
-            v_n = list(self.g.neighbors(v))
+            u_neighbours = list(self.g.neighbors(u))
+            v_neighbours = list(self.g.neighbors(v))
 
             #############################################
             #               Evolution                   #
             #############################################
 
             # new community of peripheral nodes (new nodes)
-            if len(u_n) > 1 and len(v_n) > 1:
-                common_neighbors = set(u_n) & set(v_n)
-                self.common_neighbors_analysis(u, v, common_neighbors)
+            if len(u_neighbours) > 1 and len(v_neighbours) > 1:
+                common_neighbors = set(u_neighbours) & set(v_neighbours)
+                self.common_neighbors_analysis(u, v, common_neighbors)  # 若u与v没有共同邻居，该函数不执行任何操作
 
             count += 1
 
         #  Last writing
+        # 算法终止，写入最后一个观测点
         self.status.write(u"Slice %s: Starting %s ending %s - (%s)\n" %
                           (self.actual_slice, actual_time, actual_time,
                            str(time.asctime(time.localtime(time.time())))))
@@ -212,7 +223,7 @@ class TILES(object):
     def remove(self, actual_time, qr):
         """
             Edge removal procedure
-            边移除模块
+            边移除模块，从优先级队列中移除过期的边
             :param actual_time: timestamp of the last inserted edge
             :param qr: Priority Queue containing the edges to be removed ordered by their timestamps
         """
@@ -223,7 +234,7 @@ class TILES(object):
         # main cycle on the removal queue
         if not qr.empty():
 
-            t = qr.get()
+            t = qr.get()  # 元素出队列（移除）
             timestamp = t[0]
             e = (t[1][0], t[1][1], t[1][2])
 
@@ -245,33 +256,39 @@ class TILES(object):
 
                         # decreasing link weight if greater than one
                         # (multiple occurrence of the edge: remove only the oldest)
+                        # 如果过期的边权值大于1：使它的权减1，并刷新时间戳
                         if w > 1:
                             self.g.adj[u][v]["weight"] = w - 1
                             e = (u, v, w - 1)
                             qr.put((at, e))
 
+                        # 否则（即边在减之间权值为1），移除这条边，并执行后续的社区更新
                         else:
                             # u and v shared communities
                             if len(list(self.g.neighbors(u))) > 1 and len(list(self.g.neighbors(v))) > 1:
+                                # coms: 两端点都共同归属的社区的id
                                 coms = set(self.g.node[u]['c_coms'].keys()) & set(self.g.node[v]['c_coms'].keys())
 
                                 for c in coms:
+                                    # 计算coms_to_change：被移除的边涉及的点集
                                     if c not in coms_to_change:
-                                        cn = set(self.g.neighbors(u)) & set(self.g.neighbors(v))
+                                        # 两端点的共同邻居节点
+                                        common_neighbours = set(self.g.neighbors(u)) & set(self.g.neighbors(v))
                                         coms_to_change[c] = [u, v]
-                                        coms_to_change[c].extend(list(cn))
+                                        coms_to_change[c].extend(list(common_neighbours))
                                     else:
-                                        cn = set(self.g.neighbors(u)) & set(self.g.neighbors(v))
-                                        coms_to_change[c].extend(list(cn))
+                                        common_neighbours = set(self.g.neighbors(u)) & set(self.g.neighbors(v))
+                                        coms_to_change[c].extend(list(common_neighbours))
                                         coms_to_change[c].extend([u, v])
-                                        ctc = set(coms_to_change[c])
+                                        ctc = set(coms_to_change[c])  # 去重
                                         coms_to_change[c] = list(ctc)
                             else:
+                                # 若u除了v没有其他邻居，则从现在的社区中移除u（因为这条边消失后u成为游离点）
                                 if len(list(self.g.neighbors(u))) < 2:
                                     coms_u = [x for x in self.g.node[u]['c_coms'].keys()]
                                     for cid in coms_u:
                                         self.remove_from_community(u, cid)
-
+                                # 若v除了u没有其他邻居，同样处理
                                 if len(list(self.g.neighbors(v))) < 2:
                                     coms_v = [x for x in self.g.node[v]['c_coms'].keys()]
                                     for cid in coms_v:
@@ -289,7 +306,7 @@ class TILES(object):
                         e = t[1]
 
         # update of shared communities
-        # 边移除后，更新它涉及到的社区
+        # 边移除后，更新它涉及到的点集（字典{社区id: 该社区中需要更新的点}）
         self.update_shared_coms(coms_to_change)
 
     def update_shared_coms(self, coms_to_change):
@@ -308,15 +325,19 @@ class TILES(object):
             if len(c_nodes) > 3:
 
                 sub_c = self.g.subgraph(c_nodes)
+                # 调用nx的api来计算子图中的连通部分的数量
                 c_components = nx.number_connected_components(sub_c)
 
                 # unbroken community
+                # 社区不分裂时（社区中的点仍然是一个连通整体则肯定没有分裂）
                 if c_components == 1:
+                    # 仅更新涉及的社区中涉及的点即可
                     to_mod = sub_c.subgraph(coms_to_change[c])
                     self.modify_after_removal(to_mod, c)
 
                 # broken community: bigger one maintains the id, the others obtain a new one
                 # 社区分裂时：最大的子社区获得原来的社区id，其他子社区申请新id
+                # 仅当社区完全断裂，成为不连通的两部分才认为分裂
                 else:
                     new_ids = []
 
@@ -346,6 +367,7 @@ class TILES(object):
                                     # （所以split记录中每行方括号后的id都是在这一步新申请的id）
                                     new_ids.append(actual_id)
                                     for n in central:
+                                        # todo::社区仅加入核心点？
                                         self.add_to_community(n, actual_id)
 
                     # splits
@@ -357,7 +379,7 @@ class TILES(object):
     def modify_after_removal(self, sub_c, c):
         """
             Maintain the clustering coefficient invariant after the edge removal phase
-
+            某条边移除后的更新机制，更新社区成员身份
             :param sub_c: sub-community to evaluate
             :param c: community id
         """
@@ -369,20 +391,22 @@ class TILES(object):
         for rm in remove_node:
             self.remove_from_community(rm, c)
 
+        # 核心点>=3才能组成一个社区
         if len(central) < 3:
             self.destroy_community(c)
         else:
             not_central = set(sub_c.nodes()) - set(central)
             for n in not_central:
+                # 将不满足核心点要求的点从核心点中移除
                 self.remove_from_community(n, c)
 
     def common_neighbors_analysis(self, u, v, common_neighbors):
         """
             General case in which both the nodes are already present in the net.
-            todo::共同邻居节点分析？
+            处理新边加入后的社区更新（标签传播）
             :param u: a node
             :param v: a node
-            :param common_neighbors: common neighbors of the two nodes
+            :param common_neighbors: common neighbors of the two nodes，两端点的共同邻居节点
         """
 
         # no shared neighbors
@@ -390,24 +414,30 @@ class TILES(object):
             return
 
         else:
+            # shared_coms: 端点u与v共同归属的社区
             shared_coms = set(self.g.node[v]['c_coms'].keys()) & set(self.g.node[u]['c_coms'].keys())
+            # only: 仅由某个端点归属而另一个端点不归属的社区
             only_u = set(self.g.node[u]['c_coms'].keys()) - set(self.g.node[v]['c_coms'].keys())
             only_v = set(self.g.node[v]['c_coms'].keys()) - set(self.g.node[u]['c_coms'].keys())
 
             # community propagation: a community is propagated iff at least two of [u, v, z] are central
-            propagated = False
+            propagated = False  # 该布尔量标记社区标签传播是否发生
 
+            # todo::社区标签传播（核心点的传播）
             for z in common_neighbors:
                 for c in self.g.node[z]['c_coms'].keys():
                     if c in only_v:
+                        # v将它与共同邻居z的社区传播给u
                         self.add_to_community(u, c)
                         propagated = True
 
                     if c in only_u:
+                        # u将它与共同邻居z的社区传播给v
                         self.add_to_community(v, c)
                         propagated = True
 
                 for c in shared_coms:
+                    # u与v将它们的共同社区传播给共同邻居z
                     if c not in self.g.node[z]['c_coms']:
                         self.add_to_community(z, c)
                         propagated = True
@@ -421,9 +451,10 @@ class TILES(object):
                     self.add_to_community(u, actual_cid)
                     self.add_to_community(v, actual_cid)
 
-                    # 社区的一阶邻居节点加入社区（这些节点作为社区的边缘成员）
+                    # 共同邻居加入社区（组成了三角形）
                     for z in common_neighbors:
                         self.add_to_community(z, actual_cid)
+                    # todo::边缘点不用加入社区？
 
     def print_communities(self):
         """
@@ -493,6 +524,7 @@ class TILES(object):
         out_file_graph = gzip.open("%s/%s/graph-%d.gz" % (self.base, self.path, self.actual_slice), "wt", 3)
         g_string = StringIO()
         for e in self.g.edges():
+            # 输出某个时间点的图结构到文件时，也会带上边的权值
             g_string.write(u"%d\t%s\t%d\n" % (e[0], e[1], self.g.adj[e[0]][e[1]]['weight']))
 
         out_file_graph.write(g_string.getvalue())
@@ -547,7 +579,6 @@ class TILES(object):
         :param cid: 社区id
         :return: None
         """
-        # todo::使用None来标识节点的存在？
         self.g.node[node]['c_coms'][cid] = None
         if cid in self.communities:
             self.communities[cid][node] = None
@@ -570,12 +601,19 @@ class TILES(object):
                 self.communities[cid].pop(node, None)
 
     def centrality_test(self, subgraph):
+        """
+        计算一个子图中所有能组成三角形的点（核心点）
+        注意：与计算社区不同，即使子图不连通，也符合返回的标准
+        源码中使用central表示论文中的核心点（core）
+        :param subgraph: 子图
+        :return: 节点集合（字典）
+        """
         central = {}
 
         for u in subgraph.nodes():
             if u not in central:
                 cflag = False
-                neighbors_u = set(self.g.neighbors(u))
+                neighbors_u = set(self.g.neighbors(u))  # 获取该节点的邻居点
                 if len(neighbors_u) > 1:
                     for v in neighbors_u:
                         if u > v:
@@ -583,11 +621,13 @@ class TILES(object):
                                 break
                             else:
                                 neighbors_v = set(self.g.neighbors(v))
-                                cn = neighbors_v & neighbors_v
-                                if len(cn) > 0:
+                                common_neighbour = neighbors_v & neighbors_v  # 计算共同邻居
+                                if len(common_neighbour) > 0:
+                                    # 共同邻居>0，则说明这三个点组成了三角形，将他们都加入central
+                                    # 在central字典中用None值来标记某个点的归属
                                     central[u] = None
                                     central[v] = None
-                                    for n in cn:
+                                    for n in common_neighbour:
                                         central[n] = None
                                     cflag = True
         return central
