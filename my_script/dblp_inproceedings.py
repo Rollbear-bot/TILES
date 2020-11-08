@@ -8,7 +8,7 @@ from tqdm import tqdm  # 进度条支持
 
 
 def main():
-    working_dir = "../dblp/datasets/frame_with_timestamp/inproceedings/"
+    working_dir = "../../dblp/datasets/frame_with_timestamp/inproceedings/"
     data_path = working_dir + "2021.edgelist"
     output_path = working_dir + "tiles_output_test2/"
 
