@@ -9,12 +9,13 @@ import os
 from tqdm import tqdm  # 进度条支持
 
 
-def run_tiles_on_a_dataset(dataset, edgelist_name=None, obs=365, ttl=730):
+def run_tiles_on_a_dataset(dataset, edgelist_name=None, obs=365, ttl=730, out="tiles_output"):
     working_dir = f"../dblp/datasets/frame_with_timestamp/{dataset}/"
     if edgelist_name is None:
         edgelist_name = sorted([path for path in os.listdir(working_dir) if path.endswith(".edgelist")])[-1]
     data_path = working_dir + edgelist_name
-    os.mkdir(working_dir + "tiles_output_test2")
+    if not os.path.exists(working_dir + out):
+        os.mkdir(working_dir + out)
     output_path = working_dir + "tiles_output_test2/"
 
     tl = t.TILES(data_path,
@@ -40,4 +41,5 @@ if __name__ == '__main__':
         run_tiles_on_a_dataset(avail_type,
                                edgelist_name=f"{avail_type}_sorted.edgelist",
                                obs=365,
-                               ttl=730)
+                               ttl=730,
+                               out="tiles_output_test2")
