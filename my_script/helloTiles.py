@@ -16,7 +16,6 @@ def main():
     #     # 合成文件路径
     #     data_path = data_folder + f"converted_{i}.edgelist"
     #
-    #     # todo::算法需要edgelist中包含时间戳
     #     # 初始化TILES算法
     #     tl = t.TILES(data_path,
     #                  path=output_path)

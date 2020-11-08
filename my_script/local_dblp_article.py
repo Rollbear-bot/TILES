@@ -9,12 +9,13 @@ from tqdm import tqdm  # 进度条支持
 
 def main():
     working_dir = "../data/dblp_timestamp/article/"
-    data_path = working_dir + "2021.edgelist"
+    data_path = working_dir + "2021_sorted.edgelist"
     output_path = working_dir + "tiles_output/"
 
     tl = t.TILES(data_path,
                  path=output_path,
-                 obs=7)
+                 obs=365,
+                 ttl=730)
 
     tl.execute()  # 执行算法
 
