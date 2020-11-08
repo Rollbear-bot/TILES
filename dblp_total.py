@@ -14,7 +14,8 @@ def run_tiles_on_a_dataset(dataset, edgelist_name=None, obs=365, ttl=730):
     if edgelist_name is None:
         edgelist_name = sorted([path for path in os.listdir(working_dir) if path.endswith(".edgelist")])[-1]
     data_path = working_dir + edgelist_name
-    output_path = working_dir + "tiles_output/"
+    os.mkdir(working_dir + "tiles_output_test2")
+    output_path = working_dir + "tiles_output_test2/"
 
     tl = t.TILES(data_path,
                  path=output_path,
@@ -26,12 +27,14 @@ def run_tiles_on_a_dataset(dataset, edgelist_name=None, obs=365, ttl=730):
 
 
 if __name__ == '__main__':
-    avail_types = ["phdthesis",
-                   "article",
-                   "inproceedings",
-                   "book",
-                   "incollection",
-                   "www"]
+    avail_types = [
+        "phdthesis",
+        "www",
+        "book",
+        "incollection",
+        "article",
+        "inproceedings"
+    ]
 
     for avail_type in tqdm(avail_types):
         run_tiles_on_a_dataset(avail_type,
