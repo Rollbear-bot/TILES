@@ -16,7 +16,7 @@ def run_tiles_on_a_dataset(dataset, edgelist_name=None, obs=365, ttl=730, out="t
     data_path = working_dir + edgelist_name
     if not os.path.exists(working_dir + out):
         os.mkdir(working_dir + out)
-    output_path = working_dir + "tiles_output_test2/"
+    output_path = working_dir + out
 
     tl = t.TILES(data_path,
                  path=output_path,
