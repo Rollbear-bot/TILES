@@ -23,14 +23,17 @@ def date2datetime(date_str):
         "Nov": 11,
         "Dec": 12
     }
-    _, month, day, time, year = date_str.split(" ")
-    hour, minute, sec = time.split(":")
-    return datetime.datetime(int(year),
-                             month_map[month],
-                             int(day),
-                             int(hour),
-                             int(minute),
-                             int(sec))
+    try:
+        _, month, day, time, year = date_str.split(" ")
+        hour, minute, sec = time.split(":")
+        return datetime.datetime(int(year),
+                                 month_map[month],
+                                 int(day),
+                                 int(hour),
+                                 int(minute),
+                                 int(sec))
+    except ValueError:
+        print(date_str)
 
 
 def get_sec_gap(datetime_a, datetime_b):
