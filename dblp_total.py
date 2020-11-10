@@ -9,7 +9,7 @@ import os
 from tqdm import tqdm  # 进度条支持
 
 
-def run_tiles_on_a_dataset(dataset, edgelist_name=None, obs=365, ttl=730, out="tiles_output"):
+def run_tiles_on_a_dataset(dataset, edgelist_name=None, obs=365, ttl=float('inf'), out="tiles_output"):
     working_dir = f"../dblp/datasets/frame_with_timestamp/{dataset}/"
     if edgelist_name is None:
         edgelist_name = sorted([path for path in os.listdir(working_dir) if path.endswith(".edgelist")])[-1]
