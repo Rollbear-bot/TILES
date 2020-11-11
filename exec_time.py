@@ -46,7 +46,7 @@ def get_sec_gap(datetime_a, datetime_b):
     return delta.seconds
 
 
-def parse_exc_log(log_path, csv_dump_path, debug=False):
+def parse_exec_log(log_path, csv_dump_path, debug=False):
     compiled_general = re.compile(
         "Saving Slice (\d+): Starting \d+-\d+-\d+ \d+:\d+:\d+ "
         "ending \d+-\d+-\d+ \d+:\d+:\d+ - \((.*)\)\nEdge Added: (\d+)")
@@ -68,7 +68,7 @@ def parse_exc_log(log_path, csv_dump_path, debug=False):
     # dump to csv table
     with open(csv_dump_path, "w", newline="") as wf:
         writer = csv.writer(wf)
-        csv_header = ["slice_id", "#added_edges", "exc_time"]
+        csv_header = ["slice_id", "#added_edges", "exec_time"]
         writer.writerow(csv_header)
         rows = [(clusters[index][0], clusters[index][2], sec_gap[index]) for index in range(len(clusters))]
         writer.writerows(rows)
@@ -76,7 +76,7 @@ def parse_exc_log(log_path, csv_dump_path, debug=False):
 
 def local_test():
     log = "./output/article_tiles_output/extraction_status.txt"
-    parse_exc_log(log, "./dump.csv", debug=True)
+    parse_exec_log(log, "./dump.csv", debug=True)
 
 
 def online_procedure():
@@ -93,8 +93,8 @@ def online_procedure():
     for dataset in datasets:
         working_dir = f"../dblp/datasets/frame_with_timestamp/{dataset}/" + out + "/"
         log = working_dir + "extraction_status.txt"
-        csv_dump = working_dir + f"{dataset}_exc_time.csv"
-        parse_exc_log(log_path=log, csv_dump_path=csv_dump)
+        csv_dump = working_dir + f"{dataset}_exec_time.csv"
+        parse_exec_log(log_path=log, csv_dump_path=csv_dump)
 
 
 if __name__ == '__main__':
