@@ -62,14 +62,14 @@ class eTILES(TILES):
         #################################################
 
         f = open("%s" % self.filename)
-        for l in f:
-            l = l.rstrip().split("\t")
+        for line in f:
+            line = line.rstrip().split("\t")
             self.added += 1
             e = {}
-            action = l[0]
-            u = int(l[1])
-            v = int(l[2])
-            dt = datetime.datetime.fromtimestamp(float(l[3]))
+            action = line[0]  # Action分为+与-，分别表示边的插入与移除
+            u = int(line[1])
+            v = int(line[2])
+            dt = datetime.datetime.fromtimestamp(float(line[3]))
 
             e['weight'] = 1
             e["u"] = u
@@ -82,6 +82,7 @@ class eTILES(TILES):
             gap = dt - last_break
             dif = gap.days
 
+            # 检查是否满足开启一个观测点的条件，与TILES算法一致
             if dif >= self.obs:
                 last_break = dt
                 self.added -= 1
@@ -113,10 +114,13 @@ class eTILES(TILES):
                 continue
 
             # Check if edge removal is required
+            # 检查边是否需要移除的条件从TILES的优先级队列检查，
+            # 改为通过edgelist中的“-”指定
             if action == '-':
                 self.remove_edge(e)
                 continue
 
+            # 插入边：在图数据结构中注册节点和边，包括权值的更新，与TILES算法基本一致
             if not self.g.has_node(u):
                 self.g.add_node(u)
                 self.g.node[u]['c_coms'] = {}
@@ -162,10 +166,8 @@ class eTILES(TILES):
     def remove_edge(self, e):
         """
             Edge removal procedure
-            :param actual_time: timestamp of the last inserted edge
-            :param qr: Priority Queue containing the edges to be removed ordered by their timestamps
+            边移除程序：现在仅与边本身有关，而无需时间戳与优先级队列
         """
-
         coms_to_change = {}
 
         self.removed += 1

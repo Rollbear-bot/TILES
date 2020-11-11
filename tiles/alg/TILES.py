@@ -70,9 +70,9 @@ class TILES(object):
             1. 以新边时间戳作为本次迭代的最新时间
             2. 新边加入移除队列，但先不加入图
             3. 基于本次迭代的最新时间判断是否开启一个观察点，即输出缓存中的数据到文件
-            4. 检查移除队列，移除过期的边
+            4. 检查移除队列，移除过期的边，并更新社区关系
             5. 新边加入图（在数据结构中注册节点、注册边、更新权值）
-            6. 社区演化：计算新边两端点的邻居点
+            6. 计算新边加入后的社区关系（核心点传播/新社区/合并）
         """
         self.status.write(u"Started! (%s) \n\n" % str(time.asctime(time.localtime(time.time()))))
         self.status.flush()
@@ -216,8 +216,11 @@ class TILES(object):
             申请一个新的社区id，唯一标识每一个社区
             :return: new community id
         """
+        # 上一个发放的社区ID自增作为新的社区ID
         self.cid += 1
+        # 在社区表中注册新的社区ID，节点表初始化为空
         self.communities[self.cid] = {}
+        # 返回新的社区ID
         return self.cid
 
     def remove(self, actual_time, qr):
