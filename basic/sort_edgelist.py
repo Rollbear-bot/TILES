@@ -32,7 +32,7 @@ def case_online():
 
 def local_test():
     # test
-    path = "data/dblp_timestamp/article/2021.edgelist"
+    path = "../data/dblp_timestamp/article/2021.edgelist"
     dump = "../data/dblp_timestamp/article/2021_sorted.edgelist"
     sort_edgelist_by_timestamp(path, dump)
 
